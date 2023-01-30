@@ -9,10 +9,7 @@ const pieceRoute = require('./routes/pieceRoute');
 const demandePaiementRoute = require('./routes/demandePaiementRoute');
 const beneficeRoute = require('./routes/beneficeRoute');
 const cors = require('cors');
-app.use(cors({
-    origin: '*',
-    optionsSuccessStatus: 200
-  }));
+app.use(cors());
 
 
 app.use(bodyParser.json());
