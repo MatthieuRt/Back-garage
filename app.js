@@ -10,9 +10,13 @@ const pieceRoute = require('./routes/pieceRoute');
 const demandePaiementRoute = require('./routes/demandePaiementRoute');
 const beneficeRoute = require('./routes/beneficeRoute');
 
-
 app.use(cors());
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  }); 
 
 app.use(bodyParser.json());
 
