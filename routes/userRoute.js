@@ -100,6 +100,7 @@ router.post('/inscription', async (request, response) => {
     });
 const sendgrid = require('@sendgrid/mail');
 sendgrid.setApiKey('SENDGRID_API_KEY');
+response.header("Access-Control-Allow-Origin", "https://front-garage.vercel.app");
 
 try {
     // Check if the user already exists
