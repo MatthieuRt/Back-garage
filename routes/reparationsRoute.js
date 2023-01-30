@@ -2,6 +2,11 @@ const { request, response } = require('express');
 const express = require('express');
 const router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
+const cors = require('cors');
+app.use(cors({
+    origin: '*',
+    optionsSuccessStatus: 200
+  }));
 
 
 

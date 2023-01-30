@@ -10,7 +10,7 @@ const demandePaiementRoute = require('./routes/demandePaiementRoute');
 const beneficeRoute = require('./routes/beneficeRoute');
 const cors = require('cors');
 app.use(cors({
-    origin: 'https://front-garage.vercel.app',
+    origin: '*',
     optionsSuccessStatus: 200
   }));
 
