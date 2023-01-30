@@ -9,7 +9,7 @@ const DemandeDepotVoiture = require('../models/DemandeDepotVoiture');
 const Voiture = require('../models/Voiture');
 
 // inscription de l'utilisateur pour créer un nouveau compte
-/*router.post('/inscription',(request,response)=>{
+router.post('/inscription',(request,response)=>{
     const user = new Utilisateur({
         identifiant : request.body.identifiant,
         motDePasse : request.body.motDePasse,
@@ -90,78 +90,7 @@ const Voiture = require('../models/Voiture');
         
     })   
     
-})*/
-
-router.post('/inscription', async (request, response) => {
-    const user = new Utilisateur({
-    identifiant: request.body.identifiant,
-    motDePasse: request.body.motDePasse,
-    mail: request.body.mail,
-    });
-const sendgrid = require('@sendgrid/mail');
-sendgrid.setApiKey('SENDGRID_API_KEY');
-response.header("Access-Control-Allow-Origin", "https://front-garage.vercel.app");
-
-try {
-    // Check if the user already exists
-    const userExist = await Utilisateur.findOne({ mail: user.mail });
-    let rep = {};
-
-    // If the user does not exist
-    if (userExist === null) {
-        await user.save();
-        const uuid = new ConfirmCompte({
-            userId: user._id,
-        });
-        await uuid.save();
-
-        var body = '<h1>Bonjour,</h1><p>Nous avons reçu une demande de création de compte pour cette adresse e-mail.</p><p> Pour compléter la création de votre compte, veuillez entrer le code de confirmation suivant : ' + uuid.code + ' sur notre site web.</p> \n'
-            + '<p>Merci d\'avoir utiliser notre service.</p><p>Cordialement,</p> <p>L\'équipe de notre service</p>';
-
-        const msg = {
-            to: user.mail,
-            from: 'garagenotification@gmail.com',
-            subject: 'Email de confirmation de création de compte',
-            html: body
-        };
-
-        await sendgrid.send(msg);
-
-        rep = {
-            message: 'OK',
-            value: null,
-            code: 200
-        };
-        response.json(rep);
-    }
-    // User already exists with an already activated account
-    else if (userExist.valid) {
-        rep = {
-            message: 'KO',
-            erreur: 'l\'email appartient déjà à un compte existant.',
-            value: null,
-            code: 404
-        };
-    }
-    else {
-        rep = {
-            message: 'KO',
-            value: '/confirmation-required',
-            code: 404
-        };
-    }
-    response.json(rep);
-} catch (err) {
-    const rep = {
-        message: 'KO',
-        value: err,
-        code: 404
-    };
-    response.json(rep);
-    console.log(err);
-}
-});
-
+})
 // confirmation compte utilisateur par email
 router.post('/confirmation',async (request,response)=>{
     console.log(request.body.code)
