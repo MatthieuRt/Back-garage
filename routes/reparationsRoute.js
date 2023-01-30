@@ -146,6 +146,10 @@ router.post('/depose',(req,res)=>{
     });
 });
 
+const cors = require('cors');
+
+router.use(cors());
+
 router.put('/estReceptionne/:id',(req,res)=>{
     const date = new Date();
     const options = { timeZone: 'Africa/Nairobi',day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
