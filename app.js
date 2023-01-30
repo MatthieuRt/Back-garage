@@ -9,7 +9,8 @@ const reparationsRoute = require('./routes/reparationsRoute');
 const pieceRoute = require('./routes/pieceRoute');
 const demandePaiementRoute = require('./routes/demandePaiementRoute');
 const beneficeRoute = require('./routes/beneficeRoute');
-const cors = require('cors');
+
+
 app.use(cors());
 
 
